@@ -21,7 +21,9 @@ blogsRounter.post('/', middleware.userExtractor, async (request, response) => {
         user: user.id
     })
 
-    const savedBlog = await blog.save()
+    await blog.save()
+
+    const savedBlog = await blog.populate('user', { username: 1, name: 1, id: 1 })
 
     user.blogs = user.blogs.concat(savedBlog._id)
     await user.save()
@@ -33,7 +35,7 @@ blogsRounter.delete('/:id', middleware.userExtractor, async (request, response) 
     const user = request.user
     const blog = await Blog.findById(request.params.id)
 
-    if ( blog.user.toString() !== user.id.toString() ) {
+    if (blog.user.toString() !== user.id.toString()) {
         return response.status(401).json({ error: 'unauthorized' })
     }
 
@@ -54,7 +56,9 @@ blogsRounter.put('/:id', async (request, response) => {
         likes: body.likes
     }
 
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true, runValidators: true, context: 'query' })
+    const updatedBlog = await Blog
+        .findByIdAndUpdate(request.params.id, blog, { new: true, runValidators: true, context: 'query' })
+        .populate('user', { username: 1, name: 1, id: 1 })
     response.json(updatedBlog)
 })
 
