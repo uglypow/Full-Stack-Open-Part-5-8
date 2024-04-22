@@ -33,7 +33,7 @@ const Blog = ({ blog, user, updateBlog, removeBlog }) => {
             {blog.title} by {blog.author}
             <button onClick={handleView}>hide</button>
           </div>
-          <a href={blog.url} target="_blank"><div>{blog.url}</div></a>
+          <a href={blog.url} target="_blank" rel="noreferrer"><div>{blog.url}</div></a>
           <div>
             likes {blog.likes}
             <button onClick={handleLike}>like</button>
