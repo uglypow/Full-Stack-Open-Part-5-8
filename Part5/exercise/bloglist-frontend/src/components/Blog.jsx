@@ -30,7 +30,7 @@ const Blog = ({ blog, user, updateBlog, removeBlog }) => {
       {showDetail ?
         <div>
           <div>
-            {blog.title} by {blog.author}
+            {blog.title} {blog.author}
             <button onClick={handleView}>hide</button>
           </div>
           <a href={blog.url} target="_blank" rel="noreferrer"><div>{blog.url}</div></a>
