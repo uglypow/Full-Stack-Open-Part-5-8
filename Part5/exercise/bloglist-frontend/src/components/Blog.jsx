@@ -26,7 +26,7 @@ const Blog = ({ blog, user, updateBlog, removeBlog }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} data-testid='blog'>
       {showDetail ?
         <div>
           <div>
